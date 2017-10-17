@@ -345,7 +345,11 @@ def plot_images(imgs,names=None):
 
         if not names == None:
             assert len(names) == len(imgs)
-            ax.set_xlabel(names[ind])
+            try:
+                ax.set_xlabel(names[ind])
+            except Exception as e :
+                print e
+                print ind
     plt.savefig('./1.png')
     plt.show()
 
