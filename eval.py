@@ -33,7 +33,7 @@ def eval(model_folder_path , images, labels=None):
 
 train_imgs, train_cls, test_imgs, test_cls = input.get_train_test_images(input.get_type1_image(),
                                                                              input.get_type0_image())
-pred=eval('./model/pipeline2/0' , test_imgs)
+pred=eval('./model/4' , test_imgs)
 print pred
 
 print np.argmax([0.49 , 0.51])
