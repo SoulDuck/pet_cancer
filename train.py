@@ -14,14 +14,14 @@ import aug
 import shutil
 n_test=30
 #c_images , n_images=input.get_images()
-def train(max_iter ,learning_rate , structure='inception_A', optimizer='AdamOptimizer',restored_model_folder_path='./model/4'):
+def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx  ,restored_model_folder_path='./model/4'):
 
 
     #c_images, n_images = input.get_images() ## 만약 데이터를 만들고 싶으면 이 코멘트를 해제하시오
-    c_images = np.load('./data/c_images_0.npy')
-    n_images = np.load('./data/n_images_0.npy')
-    c_images_test = np.load('./data/c_images_0_test.npy')
-    n_images_test = np.load('./data/n_images_0_test.npy')
+    c_images = np.load(os.path.join(src_root_dir , '.c_images_'+file_idx+'.npy'))
+    n_images = np.load(os.path.join(src_root_dir , '.n_images_'+file_idx+'.npy'))
+    c_images_test = np.load(os.path.join(src_root_dir , '.c_images_'+file_idx+'test.npy'))
+    n_images_test = np.load(os.path.join(src_root_dir , '.n_images_'+file_idx+'test.npy'))
 
 
     print np.shape(c_images)
