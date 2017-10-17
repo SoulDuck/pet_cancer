@@ -14,7 +14,7 @@ import aug
 import shutil
 n_test=30
 #c_images , n_images=input.get_images()
-def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx  ,restored_model_folder_path='./model/4'):
+def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx  ,restored_model_folder_path):
 
 
     #c_images, n_images = input.get_images() ## 만약 데이터를 만들고 싶으면 이 코멘트를 해제하시오
@@ -139,8 +139,11 @@ if __name__ == '__main__':
     parser.add_argument("--structure" , help = 'what structrue you need')
     parser.add_argument("--optimizer",help='')
     args = parser.parse_args()
-    args.max_iter=50000
+    args.max_iter=100
     args.learning_rate=0.001
-    train(args.max_iter, args.learning_rate, structure='simple_cnn', optimizer='AdamOptimizer')
+    for i in range(5):
+        train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./AI_region/type1' ,str(i) , 'model/'+str(i))
+        train(args.max_iter, args.learning_rate, 'simple_cnn', 'AdamOptimizer', './AI_region/type2', str(i),
+              'model/' + str(i))
 
 
