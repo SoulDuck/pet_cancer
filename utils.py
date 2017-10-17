@@ -341,8 +341,8 @@ def plot_images(imgs,names=None):
         ax = fig.add_subplot(h, h, i + 1)
         ind = random.randint(0, len(imgs) - 1)
         img = imgs[ind]
-        plt.imshow(img)
-
+        plt.imshow(img ,cmap=plt.get_cmap('gray'))
+        plt.axis('off')
         if not names == None:
             assert len(names) == len(imgs)
             try:
