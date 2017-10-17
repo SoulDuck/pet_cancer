@@ -34,7 +34,7 @@ def eval(model_folder_path , images, labels=None):
 #train_imgs, train_cls, test_imgs, test_cls = input.get_train_test_images(input.get_type1_image(),
 #                                                                             input.get_type0_image())
 
-test_imgs=np.load('./data/c_images_1_test.npy')
+test_imgs=np.load('./data/c_images_0_test.npy')
 if np.ndim(test_imgs) ==3 :
     test_imgs=test_imgs.reshape([-1,23,23,1])
 
