@@ -332,6 +332,21 @@ def make_folder(root_folder_path , folder_name):
 
 
 
+def plot_images(imgs,names=None):
+    h = math.ceil(math.sqrt(len(imgs)))
+    fig = plt.figure()
+
+    for i in range(len(imgs)):
+        ax = fig.add_subplot(h, h, i + 1)
+        ind = random.randint(0, len(imgs) - 1)
+        img = imgs[ind]
+        plt.imshow(img)
+        if not names == None:
+            ax.set_xlabel(names[ind])
+    plt.savefig('./1.png')
+    plt.show()
+
+
 if __name__=='__main__':
     #images=np.load('./FD_300.npy')
     #np2images(images,'./debug')

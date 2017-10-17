@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-
+import utils
 import input
 
 
@@ -42,7 +42,5 @@ print np.shape(test_imgs)
 pred=eval('./model/4' , test_imgs)
 
 print pred
-
-print np.argmax([0.49 , 0.51])
 print np.argmax(pred , axis=2)
-
+utils.plot_images(test_imgs , np.argmax(pred , axis=2)  )
