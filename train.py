@@ -139,7 +139,7 @@ if __name__ == '__main__':
     parser.add_argument("--structure" , help = 'what structrue you need')
     parser.add_argument("--optimizer",help='')
     args = parser.parse_args()
-    args.max_iter=100
+    args.max_iter=60000
     args.learning_rate=0.001
     for i in range(5):
         train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./data/type1' ,str(i) , 'model/type1/'+str(i))
