@@ -142,9 +142,9 @@ if __name__ == '__main__':
     args.max_iter=100
     args.learning_rate=0.001
     for i in range(5):
-        train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./AI_region/type1' ,str(i) , 'model/type1/'+str(i))
+        train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./data/type1' ,str(i) , 'model/type1/'+str(i))
         tf.reset_default_graph()
-        train(args.max_iter, args.learning_rate, 'simple_cnn', 'AdamOptimizer', './AI_region/type2', str(i),
+        train(args.max_iter, args.learning_rate, 'simple_cnn', 'AdamOptimizer', './data/type2', str(i),
               'model/type2/' + str(i))
         tf.reset_default_graph()
 
