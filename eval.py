@@ -44,5 +44,5 @@ pred=eval('./model/4' , test_imgs)
 print pred
 print np.argmax(pred , axis=2)
 test_imgs=test_imgs.reshape([-1,23,23])
-utils.plot_images(test_imgs , list(np.argmax(pred , axis=2)))
+utils.plot_images(test_imgs)
 
