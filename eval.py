@@ -35,7 +35,7 @@ def eval(model_folder_path , images, labels=None):
 #                                                                             input.get_type0_image())
 
 test_imgs=np.load('./data/c_images_0_test.npy')
-
+print np.shape(test_imgs)
 pred=eval('./model/4' , test_imgs)
 print pred
 
