@@ -31,8 +31,11 @@ def eval(model_folder_path , images, labels=None):
         return pred
 
 
-train_imgs, train_cls, test_imgs, test_cls = input.get_train_test_images(input.get_type1_image(),
-                                                                             input.get_type0_image())
+#train_imgs, train_cls, test_imgs, test_cls = input.get_train_test_images(input.get_type1_image(),
+#                                                                             input.get_type0_image())
+
+test_imgs=np.load('./data/c_images_0_test.npy')
+
 pred=eval('./model/4' , test_imgs)
 print pred
 
