@@ -187,8 +187,6 @@ def get_type1_image():
     return images
 
 
-print len(get_type0_image())
-print len(get_type1_image())
 
 
 if '__main__' == __name__ :
