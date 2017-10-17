@@ -140,7 +140,7 @@ if __name__ == '__main__':
     parser.add_argument("--optimizer",help='')
     args = parser.parse_args()
     args.max_iter=50000
-    args.learning_rate=0.0001
+    args.learning_rate=0.001
     train(args.max_iter, args.learning_rate, structure='simple_cnn', optimizer='AdamOptimizer')
 
 
