@@ -31,12 +31,19 @@ def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx
     n_cls_test = np.zeros(len(n_images_test))
     c_cls_test = np.ones(len(c_images_test))
 
-
+    h = 23
+    w = 23
+    ch = 1
+    n_classes = 2
 
     train_imgs = np.vstack((c_images_train, n_images_train))
     test_imgs = np.vstack((c_images_test, n_images_test))
     train_cls = np.hstack((c_cls_train , n_cls_train))
     test_cls = np.hstack((c_cls_test, n_cls_test))
+    if train_imgs.ndim == 3:
+        train_imgs.reshape([-1 , h,w,ch])
+    if test_imgs.ndim == 3:
+        test_imgs.reshape([-1 , h,w,ch])
     print "## input data info ##"
     print 'train images : ' , np.shape(train_imgs)
     print 'train cls : ', np.shape(train_cls)
@@ -45,10 +52,6 @@ def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx
 
 
 
-    h=23
-    w=23
-    ch=1
-    n_classes=2
     x_ = tf.placeholder(dtype=tf.float32, shape=[None, h, w, ch], name='x_')
     y_cls = tf.placeholder(dtype=tf.int32, shape=[None], name='y_')
     y_ = tf.one_hot(y_cls , 2)
