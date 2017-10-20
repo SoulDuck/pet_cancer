@@ -41,9 +41,9 @@ def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx
     train_cls = np.hstack((c_cls_train , n_cls_train))
     test_cls = np.hstack((c_cls_test, n_cls_test))
     if train_imgs.ndim == 3:
-        train_imgs.reshape([-1 , h,w,ch])
+        train_imgs=train_imgs.reshape([-1 , h,w,ch])
     if test_imgs.ndim == 3:
-        test_imgs.reshape([-1 , h,w,ch])
+        test_imgs = test_imgs.reshape([-1 , h,w,ch])
     print "## input data info ##"
     print 'train images : ' , np.shape(train_imgs)
     print 'train cls : ', np.shape(train_cls)
