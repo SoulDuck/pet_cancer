@@ -14,12 +14,12 @@ import aug
 import shutil
 n_test=30
 #c_images , n_images=input.get_images()
-def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx  ,restored_model_folder_path):
+def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx  ,restored_model_folder_path , save_log_path):
 
 
     #c_images, n_images = input.get_images() ## 만약 데이터를 만들고 싶으면 이 코멘트를 해제하시오
-    c_images = np.load(os.path.join(src_root_dir , 'c_images_'+file_idx+'.npy'))
-    n_images = np.load(os.path.join(src_root_dir , 'n_images_'+file_idx+'.npy'))
+    c_images = np.load(os.path.join(src_root_dir , 'c_images_'+file_idx+'_train.npy'))
+    n_images = np.load(os.path.join(src_root_dir , 'n_images_'+file_idx+'_train.npy'))
     c_images_test = np.load(os.path.join(src_root_dir , 'c_images_'+file_idx+'_test.npy'))
     n_images_test = np.load(os.path.join(src_root_dir , 'n_images_'+file_idx+'_test.npy'))
 
@@ -78,7 +78,8 @@ def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx
         log_device_placement=True
     )
     #config.gpu_options.allow_growth = True
-
+    summary_writer = tf.summary.FileWriter(save_log_path) # train_acc , train_loss, test_loss , test_acc 을 저장
+    summary_writer.add_graph(tf.get_default_graph())
     sess = tf.Session()
     init_op = tf.global_variables_initializer()
     sess.run(init_op)
@@ -120,12 +121,18 @@ def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx
                         min_loss= test_loss
                 #print 'time was consumed : ',end_time- start_time
                 start_time=time.time()
+                summary = tf.Summary(value=[tf.Summary.Value(tag='loss_test', simple_value=float(test_loss)), \
+                                        tf.Summary.Value(tag='accuracy_test', simple_value=float(test_acc))])
+                summary_writer.add_summary(summary , step)
 
             # names = ['cataract', 'glaucoma', 'retina', 'retina_glaucoma','retina_cataract', 'cataract_glaucoma', 'normal']
             batch_xs , batch_ys=utils.next_batch(train_imgs , train_cls , batch_size =30)
             batch_xs = aug.aug_level_1(batch_xs)
             train_acc, train_loss, _ = sess.run([accuracy, cost, train_op],
                                                 feed_dict={x_: batch_xs, y_cls: batch_ys, phase_train: True})
+            summary=tf.Summary(value=[tf.Summary.Value(tag='loss_train' , simple_value=float(train_loss)) ,\
+                              tf.Summary.Value(tag='accuracy_train' , simple_value=float(train_acc))] )
+            summary_writer.add_summary(summary , step)
             f.flush()
         f.close()
     except KeyboardInterrupt as kbi:
@@ -141,11 +148,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
     args.max_iter=60000
     args.learning_rate=0.001
+
     for i in range(5):
-        train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./data/type1' ,str(i) , 'model/type1/'+str(i))
+        train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./data/type3' , str(i), 'model/type3/'+str(i))
         tf.reset_default_graph()
-        train(args.max_iter, args.learning_rate, 'simple_cnn', 'AdamOptimizer', './data/type2', str(i),
-              'model/type2/' + str(i))
+    for i in range(9):
+        train(args.max_iter, args.learning_rate, 'simple_cnn', 'AdamOptimizer', './data/type4', str(i), 'model/type4/' + str(i))
         tf.reset_default_graph()
 
 

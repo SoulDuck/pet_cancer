@@ -34,15 +34,27 @@ def eval(model_folder_path , images, labels=None):
 #train_imgs, train_cls, test_imgs, test_cls = input.get_train_test_images(input.get_type1_image(),
 #                                                                             input.get_type0_image())
 
-test_imgs=np.load('./data/c_images_0_test.npy')
-if np.ndim(test_imgs) ==3 :
-    test_imgs=test_imgs.reshape([-1,23,23,1])
+c_test_imgs=np.load('./data/type1/c_images_4_test.npy')
+n_test_imgs=np.load('./data/type1/n_images_4_test.npy')
+if np.ndim(c_test_imgs) ==3 :
+    c_test_imgs=c_test_imgs.reshape([-1,23,23,1])
+    n_test_imgs = n_test_imgs.reshape([-1, 23, 23, 1])
 
-print np.shape(test_imgs)
-pred=eval('./model/4' , test_imgs)
+print np.shape(c_test_imgs)
+print np.shape(n_test_imgs)
+pred=eval('./model/type1/0' , c_test_imgs)
+tf.reset_default_graph()
+print pred
+print np.argmax(pred , axis=2)
+
+pred=eval('./model/type1/0' , n_test_imgs)
+tf.reset_default_graph()
 
 print pred
 print np.argmax(pred , axis=2)
-test_imgs=test_imgs.reshape([-1,23,23])
-utils.plot_images(test_imgs)
+c_test_imgs=c_test_imgs.reshape([-1,23,23])
+n_test_imgs=n_test_imgs.reshape([-1,23,23])
+print np.shape(n_test_imgs)
+utils.plot_images(c_test_imgs)
+utils.plot_images(n_test_imgs)
 

@@ -352,6 +352,7 @@ def plot_images(imgs,names=None):
                 print ind
     plt.savefig('./1.png')
     plt.show()
+    plt.close()
 
 
 if __name__=='__main__':
