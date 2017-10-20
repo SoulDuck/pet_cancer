@@ -17,27 +17,32 @@ n_test=30
 def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx  ,restored_model_folder_path , save_log_path):
 
 
-    #c_images, n_images = input.get_images() ## 만약 데이터를 만들고 싶으면 이 코멘트를 해제하시오
-    c_images = np.load(os.path.join(src_root_dir , 'c_images_'+file_idx+'_train.npy'))
-    n_images = np.load(os.path.join(src_root_dir , 'n_images_'+file_idx+'_train.npy'))
+
+    c_images_train = np.load(os.path.join(src_root_dir , 'c_images_'+file_idx+'_train.npy'))
+    n_images_train = np.load(os.path.join(src_root_dir , 'n_images_'+file_idx+'_train.npy'))
     c_images_test = np.load(os.path.join(src_root_dir , 'c_images_'+file_idx+'_test.npy'))
     n_images_test = np.load(os.path.join(src_root_dir , 'n_images_'+file_idx+'_test.npy'))
-    print 'cacner (label :1 )train images shape:',np.shape(c_images)
-    print 'normal (label :0 )train images shape:',np.shape(n_images)
+    print 'cacner (label :1 )train images shape:',np.shape(c_images_train)
+    print 'normal (label :0 )train images shape:',np.shape(n_images_train)
     print 'cacner (label :1 )test images shape:',np.shape(c_images_test)
     print 'normal (label :0 )test images shape:',np.shape(n_images_test)
-    train_imgs, train_cls, test_imgs, test_cls = input.get_train_test_images(c_images, n_images)
-    train_imgs=np.concatenate([train_imgs , test_imgs] , axis=0)
-    train_cls = np.concatenate([train_cls, test_cls], axis=0)
+    n_cls_train=np.zeros(len(n_images_train))
+    c_cls_train=np.ones(len(c_images_train))
+    n_cls_test = np.zeros(len(n_images_test))
+    c_cls_test = np.ones(len(c_images_test))
+
+    train_imgs = np.vstack(c_images_train, n_images_train)
+    test_imgs = np.vstack(c_images_test, n_images_test)
+    train_cls = np.hstack((c_cls_train , n_cls_train))
+    test_cls = np.hstack((c_cls_test, n_cls_test))
 
 
-    train_imgs_, train_cls_, test_imgs_, test_cls_ = input.get_train_test_images(c_images_test, n_images_test , c_test=10 , n_test=10)
-    test_imgs = np.concatenate([train_imgs_, test_imgs_], axis=0)
-    test_cls = np.concatenate([train_cls_, test_cls_], axis=0)
 
     print "## input data info ##"
     print 'train images : ' , np.shape(train_imgs)
+    print 'train cls : ', np.shape(train_cls)
     print 'test images : ' , np.shape(test_imgs)
+    print 'test cls : ', np.shape(test_cls)
 
 
 
