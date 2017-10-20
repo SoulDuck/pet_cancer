@@ -31,13 +31,12 @@ def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx
     n_cls_test = np.zeros(len(n_images_test))
     c_cls_test = np.ones(len(c_images_test))
 
+
+
     train_imgs = np.vstack(c_images_train, n_images_train)
     test_imgs = np.vstack(c_images_test, n_images_test)
     train_cls = np.hstack((c_cls_train , n_cls_train))
     test_cls = np.hstack((c_cls_test, n_cls_test))
-
-
-
     print "## input data info ##"
     print 'train images : ' , np.shape(train_imgs)
     print 'train cls : ', np.shape(train_cls)
