@@ -155,11 +155,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
     args.max_iter=60000
     args.learning_rate=0.001
-
+    """
     for i in range(5):
         train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./data/type3' ,str(i), \
               'model/type3/'+str(i) , './logs/type3/'+str(i))
         tf.reset_default_graph()
+    """
     for i in range(9):
         train(args.max_iter, args.learning_rate, 'simple_cnn', 'AdamOptimizer', './data/type4', str(i),\
               'model/type4/' + str(i) , './logs/type4/'+str(i))
