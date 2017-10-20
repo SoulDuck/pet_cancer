@@ -22,8 +22,6 @@ def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx
     n_images = np.load(os.path.join(src_root_dir , 'n_images_'+file_idx+'_train.npy'))
     c_images_test = np.load(os.path.join(src_root_dir , 'c_images_'+file_idx+'_test.npy'))
     n_images_test = np.load(os.path.join(src_root_dir , 'n_images_'+file_idx+'_test.npy'))
-
-
     print np.shape(c_images)
     print np.shape(n_images)
     print np.shape(c_images_test)
@@ -78,6 +76,8 @@ def train(max_iter ,learning_rate , structure, optimizer,src_root_dir , file_idx
         log_device_placement=True
     )
     #config.gpu_options.allow_growth = True
+    if not os.path.isdir(save_log_path):
+        os.mkdir(save_log_path)
     summary_writer = tf.summary.FileWriter(save_log_path) # train_acc , train_loss, test_loss , test_acc 을 저장
     summary_writer.add_graph(tf.get_default_graph())
     sess = tf.Session()
@@ -150,10 +150,12 @@ if __name__ == '__main__':
     args.learning_rate=0.001
 
     for i in range(5):
-        train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./data/type3' , str(i), 'model/type3/'+str(i))
+        train(args.max_iter, args.learning_rate,'simple_cnn', 'AdamOptimizer' ,'./data/type3' ,str(i), \
+              'model/type3/'+str(i) , './logs/type3/'+str(i))
         tf.reset_default_graph()
     for i in range(9):
-        train(args.max_iter, args.learning_rate, 'simple_cnn', 'AdamOptimizer', './data/type4', str(i), 'model/type4/' + str(i))
+        train(args.max_iter, args.learning_rate, 'simple_cnn', 'AdamOptimizer', './data/type4', str(i),\
+              'model/type4/' + str(i) , './logs/type4/'+str(i))
         tf.reset_default_graph()
 
 
